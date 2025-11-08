@@ -13,13 +13,13 @@ SaaS-платформа для автоматизации записи клие�
 - ✅ **Celery Orchestrator** - async обработка лидов
 - ✅ **Health Checks** - проверка импортов, БД, dependencies
 
-### Каналы коммуникации (5/6)
+### Каналы коммуникации (6/6)
 - ✅ **SMS** - SMSC.ru integration, auto-send приветствия
 - ✅ **Email** - SMTP с HTML/text, welcome emails
 - ✅ **Cal.com** - автоматический букинг встреч + webhooks
 - ✅ **VK** - VK Bots API service (требует bot setup)
 - ✅ **Telegram** - Telegram Bot API service (требует bot setup)
-- ⏳ **WhatsApp** - запланировано Week 4
+- ✅ **WhatsApp** - WhatsApp Business Cloud API (auto-send)
 
 ### Widget (100%)
 - ✅ **Embeddable Widget** - Vite + TypeScript
@@ -183,6 +183,10 @@ VK_GROUP_ID=123456
 
 # Telegram
 TELEGRAM_BOT_TOKEN=123456:ABC-DEF...
+
+# WhatsApp Business API
+WHATSAPP_ACCESS_TOKEN=your-access-token
+WHATSAPP_PHONE_NUMBER_ID=123456789012345
 ```
 
 ---
@@ -263,6 +267,7 @@ fast_lead/
 - Cal.com - appointment booking
 - VK Bots API - VK messaging
 - Telegram Bot API - Telegram messaging
+- WhatsApp Business API - WhatsApp messaging
 - SMTP - email sending
 
 ---
@@ -272,6 +277,7 @@ fast_lead/
 **Integration Guides:**
 - [SMS Integration](backend/docs/SMS_INTEGRATION.md) - SMSC.ru setup
 - [Cal.com Integration](backend/docs/CALCOM_INTEGRATION.md) - Booking setup
+- [WhatsApp Integration](backend/docs/WHATSAPP_INTEGRATION.md) - WhatsApp Business API setup
 - [Testing Guide](TESTING.md) - Full testing instructions
 
 **Architecture:**
@@ -323,10 +329,21 @@ curl -X POST http://localhost:8000/api/v1/leads \
 
 ## 🚦 Status
 
-**Week 1-3: ✅ COMPLETE** (6 commits, 0 bugs found)
+**Week 1-3: ✅ COMPLETE** (7 commits, 0 bugs found)
+**Week 4: 🚧 IN PROGRESS** (WhatsApp ✅, Dashboard 🚧, Analytics 📋)
+
+**Реализовано:**
+- ✅ Все 6 каналов коммуникации (SMS, Email, VK, Telegram, WhatsApp, Cal.com)
+- ✅ Backend Foundation (FastAPI, SQLAlchemy, Celery)
+- ✅ Embeddable Widget (TypeScript)
+- ✅ Health checks и testing scripts
+
+**В разработке:**
+- 🚧 Dashboard Frontend (Next.js)
+- 📋 Analytics & Reporting
 
 **Статическая проверка:**
-- ✓ Все Python файлы компилируются
+- ✓ Все 60+ Python файлов компилируются
 - ✓ Нет syntax errors
 - ✓ Database relationships корректные
 - ✓ API endpoints логически правильные

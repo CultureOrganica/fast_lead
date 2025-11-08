@@ -172,9 +172,9 @@ echo ""
 sleep 2
 
 # ==========================================
-# 6. WhatsApp Channel (placeholder)
+# 6. WhatsApp Channel
 # ==========================================
-echo -e "\n${GREEN}6. WhatsApp Channel${NC}"
+echo -e "\n${GREEN}6. WhatsApp Channel (WhatsApp Business API)${NC}"
 echo "Creating lead with WhatsApp channel..."
 
 curl -X POST "$API_URL/leads" \
@@ -184,6 +184,12 @@ curl -X POST "$API_URL/leads" \
     "name": "Анна Козлова",
     "phone": "+79991234572",
     "channel": "whatsapp",
+    "source": "https://example.com/promo",
+    "utm": {
+      "source": "instagram",
+      "medium": "social",
+      "campaign": "summer2024"
+    },
     "consent": {
       "gdpr": true,
       "marketing": true
@@ -191,8 +197,9 @@ curl -X POST "$API_URL/leads" \
   }' | python3 -m json.tool
 
 echo ""
-echo "✓ WhatsApp lead created (requires WhatsApp Business API)"
-echo "✓ Status: CONTACTED (manual processing)"
+echo "✓ WhatsApp message will be sent to +79991234572"
+echo "✓ Check Celery worker logs for WhatsApp task"
+echo "✓ Status: CONTACTED (auto-send enabled)"
 echo ""
 sleep 2
 

@@ -179,17 +179,56 @@ def _process_whatsapp_lead(lead: Lead) -> dict:
     """
     Process WhatsApp channel lead.
 
-    TODO: Implement WhatsApp Business API in Week 5
+    Sends a welcome message via WhatsApp Business API.
+    Note: WhatsApp requires phone number in international format without '+'.
     """
     logger.info(f"Processing WhatsApp lead: {lead.id}")
 
-    asyncio.run(_update_lead_status(lead.id, LeadStatus.CONTACTED))
+    if not lead.phone:
+        logger.warning(f"WhatsApp lead {lead.id} has no phone number")
+        asyncio.run(_update_lead_status(lead.id, LeadStatus.FAILED))
+        return {
+            "success": False,
+            "error": "No phone number provided",
+        }
 
-    return {
-        "success": True,
-        "action": "whatsapp_pending",
-        "message": "WhatsApp processing not yet implemented",
-    }
+    # Import WhatsApp service
+    from app.services.whatsapp_service import WhatsAppService
+
+    # Send welcome message
+    try:
+        service = WhatsAppService()
+
+        # Format phone number (remove '+' if present)
+        phone = lead.phone.replace("+", "")
+
+        message = f"Здравствуйте, {lead.name}! Спасибо за обращение. Мы свяжемся с вами в ближайшее время."
+
+        # Send async message
+        result = asyncio.run(service.send_message(
+            to=phone,
+            message=message,
+        ))
+
+        logger.info(f"WhatsApp message sent to {phone}: {result}")
+
+        # Update status
+        asyncio.run(_update_lead_status(lead.id, LeadStatus.CONTACTED))
+
+        return {
+            "success": True,
+            "action": "whatsapp_sent",
+            "message": "Welcome message sent via WhatsApp",
+            "whatsapp_message_id": result.get("message_id"),
+        }
+
+    except Exception as e:
+        logger.error(f"Failed to send WhatsApp message to lead {lead.id}: {e}")
+        asyncio.run(_update_lead_status(lead.id, LeadStatus.FAILED))
+        return {
+            "success": False,
+            "error": str(e),
+        }
 
 
 def _process_web_lead(lead: Lead) -> dict:

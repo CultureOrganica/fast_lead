@@ -6,6 +6,7 @@ from app.services.email_service import EmailService
 from app.services.calcom_service import CalcomService
 from app.services.vk_service import VKService
 from app.services.telegram_service import TelegramService
+from app.services.whatsapp_service import WhatsAppService
 
 __all__ = [
     "LeadService",
@@ -14,4 +15,5 @@ __all__ = [
     "CalcomService",
     "VKService",
     "TelegramService",
+    "WhatsAppService",
 ]

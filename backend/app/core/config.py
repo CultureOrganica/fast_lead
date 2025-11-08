@@ -74,6 +74,12 @@ class Settings(BaseSettings):
     telegram_bot_token: str = Field(default="", alias="TELEGRAM_BOT_TOKEN")
     telegram_webhook_url: str = Field(default="", alias="TELEGRAM_WEBHOOK_URL")
 
+    # WhatsApp Business API
+    whatsapp_access_token: str = Field(default="", alias="WHATSAPP_ACCESS_TOKEN")
+    whatsapp_phone_number_id: str = Field(default="", alias="WHATSAPP_PHONE_NUMBER_ID")
+    whatsapp_api_version: str = Field(default="v18.0", alias="WHATSAPP_API_VERSION")
+    whatsapp_verify_token: str = Field(default="", alias="WHATSAPP_VERIFY_TOKEN")
+
     # JWT
     jwt_secret_key: str = Field(..., alias="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
@@ -85,7 +91,7 @@ class Settings(BaseSettings):
     feature_email_enabled: bool = Field(default=True, alias="FEATURE_EMAIL_ENABLED")
     feature_vk_enabled: bool = Field(default=True, alias="FEATURE_VK_ENABLED")
     feature_telegram_enabled: bool = Field(default=True, alias="FEATURE_TELEGRAM_ENABLED")
-    feature_whatsapp_enabled: bool = Field(default=False, alias="FEATURE_WHATSAPP_ENABLED")
+    feature_whatsapp_enabled: bool = Field(default=True, alias="FEATURE_WHATSAPP_ENABLED")
     feature_billing_enabled: bool = Field(default=False, alias="FEATURE_BILLING_ENABLED")
     feature_analytics_enabled: bool = Field(default=True, alias="FEATURE_ANALYTICS_ENABLED")
 
