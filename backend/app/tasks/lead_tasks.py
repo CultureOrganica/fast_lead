@@ -111,17 +111,27 @@ def _process_email_lead(lead: Lead) -> dict:
     """
     Process Email channel lead.
 
-    TODO: Implement email sending in Week 3
+    Sends a welcome email with next steps.
     """
     logger.info(f"Processing Email lead: {lead.id}")
 
-    # For now, just mark as contacted
+    # Import here to avoid circular dependency
+    from app.tasks.email_tasks import send_welcome_email_task
+
+    # Send welcome email asynchronously
+    send_welcome_email_task.delay(
+        to_email=lead.email,
+        name=lead.name,
+        lead_id=lead.id,
+    )
+
+    # Update lead status
     asyncio.run(_update_lead_status(lead.id, LeadStatus.CONTACTED))
 
     return {
         "success": True,
-        "action": "email_pending",
-        "message": "Email processing not yet implemented",
+        "action": "email_sent",
+        "message": "Welcome email queued for sending",
     }
 
 
@@ -129,16 +139,19 @@ def _process_vk_lead(lead: Lead) -> dict:
     """
     Process VK channel lead.
 
-    TODO: Implement VK messaging in Week 3
+    NOTE: Requires VK bot configuration and user_id.
+    For now, just marks as contacted.
+    Full implementation requires webhook integration.
     """
     logger.info(f"Processing VK lead: {lead.id}")
 
+    # Update lead status
     asyncio.run(_update_lead_status(lead.id, LeadStatus.CONTACTED))
 
     return {
         "success": True,
-        "action": "vk_pending",
-        "message": "VK processing not yet implemented",
+        "action": "vk_ready",
+        "message": "VK lead ready for manual processing",
     }
 
 
@@ -146,16 +159,19 @@ def _process_telegram_lead(lead: Lead) -> dict:
     """
     Process Telegram channel lead.
 
-    TODO: Implement Telegram bot in Week 4
+    NOTE: Requires Telegram bot configuration and chat_id.
+    For now, just marks as contacted.
+    Full implementation requires webhook integration.
     """
     logger.info(f"Processing Telegram lead: {lead.id}")
 
+    # Update lead status
     asyncio.run(_update_lead_status(lead.id, LeadStatus.CONTACTED))
 
     return {
         "success": True,
-        "action": "telegram_pending",
-        "message": "Telegram processing not yet implemented",
+        "action": "telegram_ready",
+        "message": "Telegram lead ready for manual processing",
     }
 
 

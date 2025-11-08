@@ -9,7 +9,7 @@ celery_app = Celery(
     "fast_lead",
     broker=settings.celery_broker_url,
     backend=settings.celery_result_backend,
-    include=["app.tasks.sms_tasks", "app.tasks.lead_tasks"],
+    include=["app.tasks.sms_tasks", "app.tasks.email_tasks", "app.tasks.lead_tasks"],
 )
 
 # Configure Celery

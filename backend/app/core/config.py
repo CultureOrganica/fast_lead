@@ -56,6 +56,24 @@ class Settings(BaseSettings):
     calcom_event_type_id: int = Field(default=0, alias="CALCOM_EVENT_TYPE_ID")
     calcom_webhook_secret: str = Field(default="", alias="CALCOM_WEBHOOK_SECRET")
 
+    # SMTP (Email sending)
+    smtp_host: str = Field(default="", alias="SMTP_HOST")
+    smtp_port: int = Field(default=587, alias="SMTP_PORT")
+    smtp_user: str = Field(default="", alias="SMTP_USER")
+    smtp_password: str = Field(default="", alias="SMTP_PASSWORD")
+    smtp_from_email: str = Field(default="noreply@fast-lead.ru", alias="SMTP_FROM_EMAIL")
+    smtp_from_name: str = Field(default="Fast Lead", alias="SMTP_FROM_NAME")
+    smtp_use_tls: bool = Field(default=True, alias="SMTP_USE_TLS")
+
+    # VK API
+    vk_access_token: str = Field(default="", alias="VK_ACCESS_TOKEN")
+    vk_api_version: str = Field(default="5.131", alias="VK_API_VERSION")
+    vk_group_id: int = Field(default=0, alias="VK_GROUP_ID")
+
+    # Telegram Bot
+    telegram_bot_token: str = Field(default="", alias="TELEGRAM_BOT_TOKEN")
+    telegram_webhook_url: str = Field(default="", alias="TELEGRAM_WEBHOOK_URL")
+
     # JWT
     jwt_secret_key: str = Field(..., alias="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
