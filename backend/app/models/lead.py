@@ -11,11 +11,13 @@ class LeadStatus(str, enum.Enum):
     """Lead status enum."""
 
     NEW = "new"
+    PROCESSING = "processing"
     CONTACTED = "contacted"
     QUALIFIED = "qualified"
     BOOKED = "booked"
     COMPLETED = "completed"
     LOST = "lost"
+    FAILED = "failed"
 
 
 class LeadChannel(str, enum.Enum):

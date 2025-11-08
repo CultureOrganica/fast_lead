@@ -40,6 +40,16 @@ class Settings(BaseSettings):
     # Redis
     redis_url: RedisDsn = Field(..., alias="REDIS_URL")
 
+    # Celery
+    celery_broker_url: str = Field(..., alias="CELERY_BROKER_URL")
+    celery_result_backend: str = Field(..., alias="CELERY_RESULT_BACKEND")
+
+    # SMSC.ru (SMS provider)
+    smsc_login: str = Field(default="", alias="SMSC_LOGIN")
+    smsc_password: str = Field(default="", alias="SMSC_PASSWORD")
+    smsc_sender: str = Field(default="FastLead", alias="SMSC_SENDER")
+    smsc_api_url: str = Field(default="https://smsc.ru/sys/send.php", alias="SMSC_API_URL")
+
     # JWT
     jwt_secret_key: str = Field(..., alias="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")

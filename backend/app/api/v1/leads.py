@@ -122,8 +122,9 @@ async def create_lead(
     # Get next action
     next_action = await service.get_next_action(lead)
 
-    # TODO: In Week 3, trigger orchestrator task here
-    # await orchestrator.process_lead.delay(lead.id)
+    # Trigger orchestrator task to process the lead asynchronously
+    from app.tasks.lead_tasks import process_new_lead_task
+    process_new_lead_task.delay(lead.id)
 
     return CreateLeadResponse(
         lead=LeadResponse.model_validate(lead),
