@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 from app.core.config import settings
 from app.core.database import init_db, close_db
 from app.api import health
-from app.api.v1 import leads
+from app.api.v1 import leads, bookings, webhooks
 
 
 @asynccontextmanager
@@ -42,6 +42,8 @@ app.add_middleware(
 # Include routers
 app.include_router(health.router, tags=["health"])
 app.include_router(leads.router, prefix=settings.api_v1_prefix)
+app.include_router(bookings.router, prefix=settings.api_v1_prefix)
+app.include_router(webhooks.router, prefix="")
 
 
 @app.get("/")

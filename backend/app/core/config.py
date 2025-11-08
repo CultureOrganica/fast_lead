@@ -50,6 +50,12 @@ class Settings(BaseSettings):
     smsc_sender: str = Field(default="FastLead", alias="SMSC_SENDER")
     smsc_api_url: str = Field(default="https://smsc.ru/sys/send.php", alias="SMSC_API_URL")
 
+    # Cal.com (Appointment booking)
+    calcom_api_key: str = Field(default="", alias="CALCOM_API_KEY")
+    calcom_api_url: str = Field(default="https://api.cal.com/v1", alias="CALCOM_API_URL")
+    calcom_event_type_id: int = Field(default=0, alias="CALCOM_EVENT_TYPE_ID")
+    calcom_webhook_secret: str = Field(default="", alias="CALCOM_WEBHOOK_SECRET")
+
     # JWT
     jwt_secret_key: str = Field(..., alias="JWT_SECRET_KEY")
     jwt_algorithm: str = Field(default="HS256", alias="JWT_ALGORITHM")
