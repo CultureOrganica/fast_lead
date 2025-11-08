@@ -4,25 +4,62 @@ SaaS-платформа для автоматизации записи клие�
 
 ## 🚀 Быстрый старт
 
+### Текущее состояние проекта
+
+**Реализовано (Week 1-2):**
+- ✅ Backend FastAPI с async SQLAlchemy
+- ✅ Public API для создания лидов
+- ✅ Встраиваемый виджет (Vite + TypeScript)
+- ✅ SMS интеграция через SMSC.ru
+- ✅ Celery orchestrator для асинхронной обработки
+
+**Полная инструкция по тестированию:** [TESTING.md](TESTING.md)
+
 ### Для разработчиков на Mac
 
 **Prerequisites:**
 - macOS 13+ (Ventura)
-- Homebrew установлен
+- PostgreSQL 14
+- Redis 6
 - Python 3.11+
 - Node.js 20 LTS
 
-**Setup за 5 минут:**
+**Quick Setup:**
 ```bash
 # 1. Клонируем репозиторий
 git clone https://github.com/CultureOrganica/fast_lead.git
 cd fast_lead
 
-# 2. Запускаем автоматический setup
-./scripts/setup-mac.sh
+# 2. Переключаемся на dev ветку
+git checkout claude/setup-repo-access-011CUuLgKyDBqkv4FYPgtUpp
+
+# 3. Backend setup
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+# Отредактируйте .env
+
+# 4. Проверка
+python check_imports.py
+python create_migration.py
+alembic upgrade head
+
+# 5. Запуск
+uvicorn app.main:app --reload  # Terminal 1
+./run_celery_worker.sh         # Terminal 2
+
+# 6. Widget (отдельный терминал)
+cd widget
+npm install
+npm run dev
 ```
 
-Подробные инструкции: [docs/setup-mac.md](docs/setup-mac.md)
+**Подробные инструкции:**
+- [TESTING.md](TESTING.md) - Полное руководство по тестированию
+- [docs/setup-mac.md](docs/setup-mac.md) - Setup для Mac
+- [backend/docs/SMS_INTEGRATION.md](backend/docs/SMS_INTEGRATION.md) - SMS интеграция
 
 ## 📁 Структура проекта
 
