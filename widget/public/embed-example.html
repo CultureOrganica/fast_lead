@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fast Lead Widget - Embed Example</title>
+</head>
+<body>
+  <!-- Your website content here -->
+  <h1>Пример встраивания Fast Lead Widget</h1>
+  <p>Этот виджет автоматически появится в правом нижнем углу страницы.</p>
+
+  <!-- Fast Lead Widget Embed Code -->
+  <script>
+    // Widget configuration
+    window.FAST_LEAD_CONFIG = {
+      apiUrl: 'http://localhost:8000',
+      tenantId: 1,
+      channel: 'web',
+      primaryColor: '#2563eb',
+
+      // Customization
+      formTitle: 'Связаться с нами',
+      formDescription: 'Оставьте ваши контакты, и мы свяжемся с вами в ближайшее время.',
+      buttonText: 'Отправить',
+      successMessage: 'Спасибо! Мы свяжемся с вами в ближайшее время.',
+
+      // Fields configuration (optional)
+      fields: {
+        name: true,
+        phone: true,
+        email: true,
+        vkId: false,
+      },
+
+      // Auto-collect
+      collectUtm: true,
+      collectSource: true,
+
+      // Callbacks (optional)
+      onSuccess: function(response) {
+        console.log('Lead created:', response);
+        // You can add analytics tracking here
+        // gtag('event', 'lead_submit', { lead_id: response.lead.id });
+      },
+      onError: function(error) {
+        console.error('Error creating lead:', error);
+      },
+    };
+  </script>
+  <script src="./fast-lead-widget.umd.js"></script>
+  <!-- End Fast Lead Widget Embed Code -->
+
+</body>
+</html>
